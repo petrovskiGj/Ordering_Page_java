@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+        layout:decorate="~{layout2}">
+
+<body layout:fragment="body">
+<div class="container">
+    <section class="py-5">
+        <title>Edit Title</title>
+        <form role="form" method="post" th:action="@{/interiors/{interiorId}/edit(interiorId=${interior.id})}"
+              th:object="${interior}">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="name">Model</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" name="name"
+                           placeholder="Enter name">
+                    <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="photoTrim">Trim photo URL</label>
+                    <input type="text" class="form-control" id="photoTrim" th:field="*{photoTrim}" name="photoTrim"
+                           placeholder="Enter trim photo URL">
+                    <p th:if="${#fields.hasErrors('photoTrim')}" class="text-danger" th:errors="*{photoTrim}"></p>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="photoSeat">Seat photo URL</label>
+                    <input type="text" class="form-control" id="photoSeat" th:field="*{photoSeat}" name="photoSeat"
+                           placeholder="Enter seat photo URL">
+                    <p th:if="${#fields.hasErrors('photoSeat')}" class="text-danger" th:errors="*{photoSeat}"></p>
+
+                </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="colors">Color</label>
+                <input type="text" class="form-control" id="colors" th:field="*{colors}" name="colors"
+                       placeholder="Enter your exterior color">
+                <p th:if="${#fields.hasErrors('colors')}" class="text-danger" th:errors="*{colors}"></p>
+
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="markPopular">Popularity</label>
+                <input type="text" class="form-control" id="markPopular" th:field="*{markPopular}" name="markPopular"
+                       placeholder="You can type whatever you want">
+                <p th:if="${#fields.hasErrors('markPopular')}" class="text-danger" th:errors="*{markPopular}"></p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label>Type</label><br/>
+                <select id="trimType" name="trimType">
+                    <!-- For each type you should have one <option> like below  -->
+                    <option th:each="tt: ${InteriorTrimType}"
+                            th:value="${tt}"
+                            th:text="${tt}"
+                            th:selected="${interior != null and interior.trimType != null and interior.trimType.equals(tt)}">
+                        [type_name]
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label>Type</label><br/>
+                <select id="seatType" name="seatType">
+                    <!-- For each type you should have one <option> like below  -->
+                    <option th:each="st: ${InteriorSeatType}"
+                            th:value="${st}"
+                            th:text="${st}"
+                            th:selected="${interior != null and interior.seatType != null and interior.seatType.equals(st)}">
+                        [type_name]
+                    </option>
+                </select>
+            </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </section>
+</div>
+
+</body>

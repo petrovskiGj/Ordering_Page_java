@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+        layout:decorate="~{layout2.html}">
+
+<body layout:fragment="body">
+<div class="container">
+    <section class="py-5">
+        <title>Create Title</title>
+        <form role="form" method="post" th:action="@{/engines/add}" th:object="${engine}">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="name">Model</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" name="name"
+                           placeholder="Enter name">
+                    <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="photoUrl">photoUrl</label>
+                    <input type="text" class="form-control" id="photoUrl" th:field="*{photoUrl}" name="photoUrl"
+                           placeholder="Enter photo URL">
+                    <p th:if="${#fields.hasErrors('photoUrl')}" class="text-danger" th:errors="*{photoUrl}"></p>
+
+                </div>
+            </div>
+            <!--            <div class="form-group col-md-6 mb-3">-->
+            <!--                <label for="kw">KW-KiloWats</label>-->
+            <!--                <input type="text" class="form-control" id="kw" th:field="*{kw}" name="kw"-->
+            <!--                       placeholder="You can type whatever you want">-->
+            <!--                <p th:if="${#fields.hasErrors('kw')}" class="text-danger" th:errors="*{kw}"></p>-->
+
+            <!--            </div>-->
+            <!--            <div class="form-group col-md-6 mb-3">-->
+            <!--                <label for="horsePower">Horse Power</label>-->
+            <!--                <input type="text" class="form-control" id="horsePower" th:field="*{horsePower}" name="horsePower"-->
+            <!--                       placeholder="You can type whatever you want">-->
+            <!--                <p th:if="${#fields.hasErrors('horsePower')}" class="text-danger" th:errors="*{horsePower}"></p>-->
+
+            <!--            </div>-->
+            <!-- ... (other HTML code) ... -->
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="kw">KW-KiloWatts</label>
+                <input type="text" class="form-control" id="kw" th:field="*{kw}" name="kw"
+                       placeholder="Enter KW" oninput="calculateHorsepower(this.value)">
+                <p th:if="${#fields.hasErrors('kw')}" class="text-danger" th:errors="*{kw}"></p>
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="horsePower">Horse Power</label>
+                <input type="text" class="form-control" id="horsePower" th:field="*{horsePower}" name="horsePower"
+                       placeholder="Calculated Horse Power" readonly>
+                <p th:if="${#fields.hasErrors('horsePower')}" class="text-danger" th:errors="*{horsePower}"></p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="markPopular">Popularity</label>
+                <input type="text" class="form-control" id="markPopular" th:field="*{markPopular}" name="markPopular"
+                       placeholder="You can type whatever you want">
+                <p th:if="${#fields.hasErrors('markPopular')}" class="text-danger" th:errors="*{markPopular}"></p>
+
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}" name="description"
+                       placeholder="description">
+                <p th:if="${#fields.hasErrors('description')}" class="text-danger" th:errors="*{description}"></p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label>Type</label><br/>
+                <select id="engineFuelType" name="engineFuel">
+                    <!-- For each type you should have one <option> like below  -->
+                    <option th:each="e: ${engineFuelType}"
+                            th:value="${e}"
+                            th:text="${e}"
+                            th:selected="${engine != null and engine.engineFuel != null and engine.engineFuel.equals(e)}">
+                        [type_name]
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label>Type</label><br/>
+                <select id="engineModelType" name="engineModel">
+                    <!-- For each type you should have one <option> like below  -->
+                    <option th:each="m: ${engineModelType}"
+                            th:value="${m}"
+                            th:text="${m}"
+                            th:selected="${engine != null and engine.engineType != null and engine.engineType.equals(m)}">
+                        [type_name]
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label>Type</label><br/>
+                <select id="engineShifterType" name="engineShifter">
+                    <!-- For each type you should have one <option> like below  -->
+                    <option th:each="s: ${engineShifterType}"
+                            th:value="${s}"
+                            th:text="${s}"
+                            th:selected="${engine != null and engine.engineShifter != null and engine.engineShifter.equals(s)}">
+                        [type_name]
+                    </option>
+                </select>
+            </div>
+
+
+            <script>
+                function calculateHorsepower(kwValue) {
+                    // Assuming a simple conversion formula (this may vary based on your requirements)
+                    // You can adjust the formula based on your actual conversion logic.
+                    const conversionFactor = 1.341; // Adjust this based on your specific conversion factor
+                    const calculatedHorsepower = kwValue * conversionFactor;
+
+                    // Update the Horse Power field with the calculated value
+                    document.getElementById('horsePower').value = calculatedHorsepower.toFixed(2);
+                }
+            </script>
+
+            <!-- ... (other HTML code) ... -->s
+
+
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </section>
+</div>
+</body>

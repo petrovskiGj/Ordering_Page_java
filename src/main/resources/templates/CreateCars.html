@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+        layout:decorate="~{layout2.html}">
+
+<body layout:fragment="body">
+<div class="container">
+    <section class="py-5">
+        <title>Create Title</title>
+        <form role="form" method="post" th:action="@{/cars/add}" th:object="${car}">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="name">Model</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" name="name"
+                           placeholder="Enter name">
+                    <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="description">description</label>
+                    <input type="text" class="form-control" id="description" th:field="*{description}" name="description"
+                           placeholder="Enter photo URL">
+                    <p th:if="${#fields.hasErrors('description')}" class="text-danger" th:errors="*{description}"></p>
+
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="photoUrl">photoUrl</label>
+                    <input type="text" class="form-control" id="photoUrl" th:field="*{photoUrl}" name="photoUrl"
+                           placeholder="photoUrl">
+                    <p th:if="${#fields.hasErrors('photoUrl')}" class="text-danger" th:errors="*{photoUrl}"></p>
+
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="price">price</label>
+                    <input type="text" class="form-control" id="price" th:field="*{price}" name="price"
+                           placeholder="price">
+                    <p th:if="${#fields.hasErrors('price')}" class="text-danger" th:errors="*{price}"></p>
+
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="dateReleased">latitude</label>
+                    <input type="text" class="form-control" id="dateReleased" th:field="*{dateReleased}" name="dateReleased"
+                           placeholder="latitude">
+                    <p th:if="${#fields.hasErrors('dateReleased')}" class="text-danger" th:errors="*{dateReleased}"></p>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Type</label><br/>
+                    <select id="types" name="carTypes">
+                        <!-- For each type you should have one <option> like below  -->
+                        <option th:each="t: ${types}"
+                                th:value="${t}"
+                                th:text="${t}"
+                                th:selected="${car != null and car.carTypes != null and car.carTypes.equals(t)}">
+                            [type_name]
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label>Engines</label><br/>
+                    <select id="engine" name="engines" multiple>
+                        <!-- Iterate over the list of interior objects -->
+                        <option th:each="en : ${engines}" th:value="${en.id}" th:text="${en.name}"
+                        th:selected="${car != null and car.engines != null and car.engines.contains(en)}">
+                            <!-- Use i.name or any property of Interior object as text for the option -->
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label>Interiors</label><br/>
+                    <select id="interior" name="interiors" multiple>
+                        <!-- Iterate over the list of interior objects -->
+                        <option th:each="i : ${interiors}" th:value="${i.id}" th:text="${i.name}"
+                        th:selected="${car != null and car.interiors != null and car.interiors.contains(i)}">
+                            <!-- Use i.name or any property of Interior object as text for the option -->
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label>Exteriors</label><br/>
+                    <select id="exterior" name="exteriors" multiple>
+                        <!-- Iterate over the list of interior objects -->
+                        <option th:each="ex : ${exteriors}" th:value="${ex.id}" th:text="${ex.name}"
+                        th:selected="${car != null and car.exteriors != null and car.exteriors.contains(ex)}">
+                            <!-- Use i.name or any property of Interior object as text for the option -->
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </section>
+</div>
+</body>

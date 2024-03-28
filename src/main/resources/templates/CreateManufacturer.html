@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+        layout:decorate="~{layout2.html}">
+
+<body layout:fragment="body">
+<div class="container">
+    <section class="py-5">
+        <title>Create Title</title>
+        <form role="form" method="post" th:action="@{/manufacturers/add}" th:object="${manufacturer}">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="name">Model</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" name="name"
+                           placeholder="Enter name">
+                    <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="photoUrl">Photo URL</label>
+                    <input type="text" class="form-control" id="photoUrl" th:field="*{photoUrl}" name="photoUrl"
+                           placeholder="Enter photo URL">
+                    <p th:if="${#fields.hasErrors('photoUrl')}" class="text-danger" th:errors="*{photoUrl}"></p>
+
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="country">Country</label>
+                    <input type="text" class="form-control" id="country" th:field="*{country}" name="country"
+                           placeholder="Country">
+                    <p th:if="${#fields.hasErrors('country')}" class="text-danger" th:errors="*{country}"></p>
+
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" th:field="*{city}" name="city"
+                           placeholder="City">
+                    <p th:if="${#fields.hasErrors('city')}" class="text-danger" th:errors="*{city}"></p>
+
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="latitude">latitude</label>
+                    <input type="text" class="form-control" id="latitude" th:field="*{latitude}" name="latitude"
+                           placeholder="latitude">
+                    <p th:if="${#fields.hasErrors('latitude')}" class="text-danger" th:errors="*{latitude}"></p>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="longitude">longitude</label>
+                    <input type="text" class="form-control" id="longitude" th:field="*{longitude}" name="longitude"
+                           placeholder="longitude">
+                    <p th:if="${#fields.hasErrors('longitude')}" class="text-danger" th:errors="*{longitude}"></p>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="siteUrl">siteUrl</label>
+                    <input type="text" class="form-control" id="siteUrl" th:field="*{siteUrl}" name="siteUrl"
+                           placeholder="siteUrl">
+                    <p th:if="${#fields.hasErrors('siteUrl')}" class="text-danger" th:errors="*{siteUrl}"></p>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </section>
+</div>
+</body>
